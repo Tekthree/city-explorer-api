@@ -3,6 +3,7 @@
 //===================== dependencies ============================
 const express = require("express");
 const cors = require("cors");
+const superagent = require("superagent");
 const weatherData = require("./weather.json");
 
 //===================== setting up app ============================
@@ -18,27 +19,24 @@ app.get("/", (req, res) => {
   res.status(200).send("hello World");
 });
 
-app.get("/weather", weatherHandler);
+app.get("/weather:search", weatherHandler);
 
 //===================== Handlers ============================
 
 function weatherHandler(req, res) {
+  const newWeather = weatherData.data.map((weather) => {
+    return new Forecast(weather.datetime, weather.weather.description);
+  });
 
-  const newWeather = weatherData.data.map(weather=>{
-    return new Forecast(weather.datetime,weather.weather.description);
-  })
-
-  res.status(200).send("hello World");
+  res.status(200).send(newWeather);
   const body = req.body;
-  console.log(newWeather);
-  console.log(weatherData);
 }
 
 //===================== Constructors ============================
 
 function Forecast(date, description) {
   this.date = date;
-  this.description = description || 'no description';
+  this.description = description || "no description";
 }
 
 app.listen(PORT, () => console.log(`Listening on Port ${PORT}`));
