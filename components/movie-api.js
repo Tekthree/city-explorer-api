@@ -1,9 +1,13 @@
 const superagent = require("superagent");
+let cache = require('../modules/cache.js');
 
 ///>>>>>>>>>>>>>>>>   handler  <<<<<<<<<<<<<<<<<<<
 
+
 function getMoviesHandler(req, res) {
   const city = req.query.city;
+  let cacheKey = "movies -" + city;
+  const cachedMovieInfo = cache[cacheKey];
   const moviesUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${city}&include_adult=true`;
 
   superagent

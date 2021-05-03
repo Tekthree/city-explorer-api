@@ -35,3 +35,7 @@ Start time: _____
 Finish time: _____
 
 Actual time needed to complete: _____
+
+
+(request-response cycle)[https://drive.google.com/file/d/1gRvquVe0aVEbMnUg3YiGST8d9lVWKX58/view?usp=sharing]
+(request-response cycle)[https://drive.google.com/file/d/1dSiRqvoxYQkjpg7428n1Jw2yzJb6yjNq/view?usp=sharing]

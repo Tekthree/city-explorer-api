@@ -2,14 +2,16 @@
 require("dotenv").config();
 
 //===================== dependencies ============================
-const express = require("express");
+
 const cors = require("cors");
-const superagent = require("superagent");
+const express = require("express");
 
 const getMoviesHandler = require("./components/movie-api.js");
 const weatherHandler = require("./components/weather-api.js");
+const weather = require('./modules/weather.js');
 
 //===================== setting up app ============================
+
 const app = express();
 const PORT = process.env.PORT || 3002;
 
@@ -24,6 +26,19 @@ app.get("/", (req, res) => {
 
 app.get("/weather", weatherHandler);
 app.get("/movies", getMoviesHandler);
+app.get('/weathers', weatherStarterHandler);
+
+function weatherStarterHandler(request, response) {
+  const { lat, lon } = request.query;
+  weather(lat, lon)
+  .then(summaries => response.send(summaries))
+  .catch((error) => {
+    console.error(error);
+    response.status(200).send('Sorry. Something went wrong!')
+  });
+}  
+
+
 
 //===================== listen ============================
 
